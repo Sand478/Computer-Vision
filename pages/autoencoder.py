@@ -92,24 +92,18 @@ model = ConvAutoencoder()
 model.load_state_dict(torch.load('/home/alex/projects/Computer-Vision/autoencoder_model_weights.pt'))
 
 
-st.subheader('"Это приложение производит очистку текста от шума методом автоэнкодинга" :ru:')
+st.subheader('Это приложение производит очистку текста от шума методом автоэнкодинга :ru:')
 # st.markdown("# Функция ❄️")
 st.sidebar.markdown("Очистка текста от шума")
-# img = st.file_uploader("Choose an image", ["jpg","jpeg","png"]) #image uploader
 
 
-uploaded_file = st.file_uploader('Загрузи изображение')
-image = Image.open(uploaded_file)
-st.image(uploaded_file, caption='Ваше изображение', use_column_width=True)
-    # image = image.convert('RGB')
-image = T.ToTensor()(image)
-
-
-# img = io.read_image('/home/alex/projects/Computer-Vision/63.png')
-# plt.imshow(torch.permute(img, (1, 2, 0)), cmap='gray')
-
-
-model.eval()
-img2 = model(image.unsqueeze(0)/255).data.squeeze(0).squeeze(0)
-st.image(img2.squeeze(0).permute(1, 2, 0).detach().numpy(), width=width)
-
+uploaded_file = st.file_uploader('Загрузите изображение')
+if uploaded_file is not None:
+    st.image(uploaded_file, use_column_width=True)
+    image = Image.open(uploaded_file)
+    image = image.convert('L')
+    image = T.ToTensor()(image).unsqueeze(0)
+    image = T.Resize((250, 600))(image)
+    model.eval()  # в модель подается torch.Size([1, 1, 258, 540])
+    img2 = model(image)
+    st.image(img2.detach().numpy().squeeze(0).squeeze(0), caption='Изображение, очищенное от шумов', use_column_width=True)
