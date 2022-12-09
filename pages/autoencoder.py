@@ -82,7 +82,7 @@ def load_model():
     print('----------------------------------')
     print(os.listdir())
 
-    model.load_state_dict(torch.load('autoencoder_model_weights.pt'))
+    model.load_state_dict(torch.load('pages/autoencoder_model_weights.pt'))
     model.eval()
     return model
 
