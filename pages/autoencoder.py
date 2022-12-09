@@ -73,13 +73,18 @@ class ConvAutoencoder(nn.Module):
 
         return out
 
+    
+def load_model():
+    
 
-model = ConvAutoencoder()
-print('model')
-print('----------------------------------')
-print(os.listdir())
+    model = ConvAutoencoder()
+    print('model')
+    print('----------------------------------')
+    print(os.listdir())
 
-model.load_state_dict(torch.load('autoencoder_model_weights.pt'))
+    model.load_state_dict(torch.load('autoencoder_model_weights.pt'))
+    model.eval()
+return model
 
 
 
@@ -95,6 +100,7 @@ if uploaded_file is not None:
     image = image.convert('L')
     image = T.ToTensor()(image).unsqueeze(0)
     image = T.Resize((250, 600))(image)
-    model.eval()  # в модель подается torch.Size([1, 1, 258, 540])
+    model = load_model()
+#     model.eval()  # в модель подается torch.Size([1, 1, 258, 540])
     img2 = model(image)
     st.image(img2.detach().numpy().squeeze(0).squeeze(0), caption='Изображение, очищенное от шумов', use_column_width=True)
