@@ -74,7 +74,7 @@ class ConvAutoencoder(nn.Module):
 
 model = ConvAutoencoder()
 
-model.load_state_dict(torch.load('/autoencoder_model_weights.pt'))
+model.load_state_dict(torch.load('pages/autoencoder_model_weights.pt'))
 
 
 st.subheader('Это приложение производит очистку текста от шума методом автоэнкодинга :ru:')
