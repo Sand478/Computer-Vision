@@ -5,6 +5,8 @@ from torchvision import transforms as T
 from torchvision.utils import save_image
 import streamlit as st
 from PIL import Image
+import os
+
 
 class ConvAutoencoder(nn.Module):
     def __init__(self):
@@ -73,8 +75,10 @@ class ConvAutoencoder(nn.Module):
 
 
 model = ConvAutoencoder()
+print(os.listdir())
 
 model.load_state_dict(torch.load('autoencoder_model_weights.pt'))
+
 
 
 st.subheader('Это приложение производит очистку текста от шума методом автоэнкодинга :ru:')
