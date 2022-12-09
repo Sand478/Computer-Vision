@@ -75,6 +75,7 @@ class ConvAutoencoder(nn.Module):
 
 
 model = ConvAutoencoder()
+print('----------------------------------')
 print(os.listdir())
 
 model.load_state_dict(torch.load('autoencoder_model_weights.pt'))
