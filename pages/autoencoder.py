@@ -75,6 +75,7 @@ class ConvAutoencoder(nn.Module):
 
 
 model = ConvAutoencoder()
+print('model')
 print('----------------------------------')
 print(os.listdir())
 
